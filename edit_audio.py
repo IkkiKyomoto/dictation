@@ -1,6 +1,8 @@
 import pydub
-def edit(file):
-    song = pydub.AudioSegment.from_file(file, "m4a")
+
+def edit(file, file_format):
+    song = pydub.AudioSegment.from_file(file, file_format)
+    #song = song.speedup(playback_speed=2.0, crossfade=0)
     minutes = 10
     slice_song = []
     end = minutes*60*1000
@@ -8,9 +10,9 @@ def edit(file):
     while len(song) > minutes*60*1000:
         slice_song.append(song[:end])
         song = song[end:]
-        slice_song[i - 1].export(f"audio_place/edited{i}.mp3", format="mp3")
+        slice_song[i - 1].export(f"workplace/edited{i}.mp3", format="mp3")
         i += 1
         
     slice_song.append(song)
-    song.export(f"audio_place/edited{i}.mp3", format="mp3")
+    song.export(f"workplace/edited{i}.mp3", format="mp3")
     return i
